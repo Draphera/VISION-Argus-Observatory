@@ -1,0 +1,9 @@
+{
+  "schema": "vision.argus.eco_impact.parameters.v0",
+  "unitsToMillimetersFactor": 1.0,
+  "rapidTravelSpeedMmPerSecond": 1000.0,
+  "idlePowerWatts": 500.0,
+  "electricityCarbonIntensityKgCo2PerKwh": 0.25,
+  "fabricSavedModelEnabled": false,
+  "notes": "All eco-impact metrics are parametric estimates derived from ARGUS geometric deltas. They are not certification claims."
+}

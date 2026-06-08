@@ -1,0 +1,5 @@
+{
+  "schema": "vision.argus.public.summary.v1",
+  "status": "scaffold",
+  "notes": "Replace with sanitized ARGUS public export only."
+}

@@ -1,0 +1,9 @@
+{
+  "name": "vision-argus-observatory",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo static"
+  }
+}

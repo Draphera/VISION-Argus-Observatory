@@ -1,0 +1,76 @@
+name: CAD sample submission
+description: Submit metadata for a CAD/HPGL-family sample. Raw files enter quarantine/audit before analysis.
+title: "[CAD Submission]: "
+labels: ["cad-submission", "quarantine-required"]
+body:
+  - type: dropdown
+    id: vendor
+    attributes:
+      label: Vendor
+      options:
+        - Lectra
+        - Gerber
+        - Assyst
+        - Investronica
+        - FK
+        - Pro2CAD
+        - Zund
+        - Centromac
+        - Unknown
+    validations:
+      required: true
+  - type: input
+    id: exporter
+    attributes:
+      label: CAD/exporter software
+      placeholder: "Example: AccuMark, Modaris, Assyst, unknown"
+    validations:
+      required: false
+  - type: dropdown
+    id: file_family
+    attributes:
+      label: File family
+      options:
+        - HPGL
+        - HPGL2
+        - PLT
+        - HPG
+        - PLX
+        - ASTM
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: machine
+    attributes:
+      label: Machine/cutter
+      placeholder: "Optional"
+    validations:
+      required: false
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: "Optional"
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Add any non-sensitive context.
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Required confirmations
+      options:
+        - label: I confirm I have rights to share this sample.
+          required: true
+        - label: I understand the file enters quarantine and audit before analysis.
+          required: true
+        - label: I understand raw files may not be published.
+          required: true
+        - label: I understand only aggregated metrics may appear publicly.
+          required: true

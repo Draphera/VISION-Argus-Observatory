@@ -1,0 +1,48 @@
+# dependencies / tooling
+node_modules/
+.vercel/
+.next/
+dist/
+build/
+
+# environment
+.env
+.env.*
+*.local
+
+# raw/private CAD data - forbidden in public repo
+*.hpgl
+*.hpgl2
+*.hpg
+*.hp
+*.plt
+*.plx
+*.astm
+*.dxf
+*.iso
+*.aama
+*.vnf
+*.vnf.json
+
+# private/local folders
+raw/
+incoming/
+quarantine/
+archive/
+private/
+customer-data/
+watchdog/
+vnf/
+certified/
+
+# local OS/editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# logs
+*.log
+logs/
