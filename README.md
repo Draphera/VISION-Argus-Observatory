@@ -21,6 +21,22 @@ read-only public observatory
 
 This repository is a public evidence surface, not a production runtime.
 
+## Current Public Snapshot
+
+Status: first real sanitized Watchdog observatory snapshot
+
+The current public data summarizes a private intake cycle:
+
+- `163` files observed privately
+- `162` files quarantined privately
+- `0` suspicious files
+- `22` safe observations
+- `5` duplicate-only warnings
+- `135` observations queued for controlled review
+
+No raw files, coordinates, customer filenames, local paths, VNF artifacts, or
+machine output are published.
+
 ## Live Surfaces
 
 - `index.html` - public observatory landing page
@@ -124,6 +140,24 @@ public/
 ```
 
 The build script blocks CAD/VNF-family extensions from the public bundle.
+
+## Public Export Guard
+
+Run before publishing:
+
+```powershell
+npm run guard:public
+```
+
+Full pre-publish check:
+
+```powershell
+npm run prepublish:check
+```
+
+The guard fails if the public repository contains forbidden CAD/VNF-family
+extensions, local paths, raw HPGL references, or coordinate-like command
+streams.
 
 ## Vercel Deployment
 

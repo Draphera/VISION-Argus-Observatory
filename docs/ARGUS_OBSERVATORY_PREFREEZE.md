@@ -117,6 +117,7 @@ metadata request
 
 Before publishing:
 
+- [ ] `npm run guard:public` passes.
 - [ ] `npm run build` passes.
 - [ ] no CAD/VNF extension exists under `public\`.
 - [ ] no local path appears in public HTML/JSON/CSV.
@@ -146,4 +147,3 @@ Vercel serves the generated static output.
 
 The public site must remain static except for the metadata-only contact
 function.
-

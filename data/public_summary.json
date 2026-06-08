@@ -1,5 +1,58 @@
 {
   "schema": "vision.argus.public.summary.v1",
-  "status": "scaffold",
-  "notes": "Replace with sanitized ARGUS public export only."
+  "status": "first_real_watchdog_observatory",
+  "generatedAt": "2026-06-08T10:34:20Z",
+  "source": "VISION.Watchdog sanitized aggregate intake",
+  "notes": "Public data is aggregate-only. No raw files, coordinates, customer filenames, local paths, VNF artifacts, or machine output are published.",
+  "privacyBoundary": {
+    "rawFilesPublished": 0,
+    "coordinatesExposed": 0,
+    "customerFilenamesPublished": 0,
+    "sanitizedOutputBoundaryPct": 100,
+    "runtimeMode": "read-only public observatory"
+  },
+  "watchdogRun": {
+    "filesSeen": 163,
+    "filesQuarantinedPrivate": 162,
+    "filesRejected": 1,
+    "uniqueFilesTotal": 134,
+    "duplicatesTotal": 28,
+    "suspiciousTotal": 0,
+    "warningsTotal": 5,
+    "safeTotal": 22,
+    "unknownTotal": 135,
+    "processingTimeMilliseconds": 87526.48
+  },
+  "vendors": [
+    { "vendor": "assyst", "files": 21, "status": "observed" },
+    { "vendor": "fk", "files": 2, "status": "observed" },
+    { "vendor": "gerber", "files": 11, "status": "observed" },
+    { "vendor": "investronica", "files": 23, "status": "observed" },
+    { "vendor": "lectra", "files": 31, "status": "observed" },
+    { "vendor": "pro2cad", "files": 1, "status": "observed" },
+    { "vendor": "unknown", "files": 73, "status": "needs fingerprint review" }
+  ],
+  "riskCounts": {
+    "safe": 22,
+    "warning": 5,
+    "unknown": 135,
+    "rejected": 1,
+    "suspicious": 0
+  },
+  "reviewSignals": {
+    "unknownCommandTotal": 403,
+    "oemVariantSignals": 21,
+    "candidateClusters": [
+      { "cluster": "assyst_ff_fl_rp", "observations": 21, "status": "candidate-only" },
+      { "cluster": "investronica_cs", "observations": 25, "status": "candidate-only" },
+      { "cluster": "pro2cad_like_command_cluster", "observations": 48, "status": "candidate-only" },
+      { "cluster": "unknown_wu", "observations": 4, "status": "candidate-only" }
+    ]
+  },
+  "ecoImpact": {
+    "enabled": false,
+    "reason": "Watchdog first public run is intake-only. No ARGUS path delta is published for this snapshot.",
+    "parametersFile": "data/eco_impact_parameters.json",
+    "summaryFile": "data/eco_impact_summary.json"
+  }
 }

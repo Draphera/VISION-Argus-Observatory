@@ -1,2 +1,18 @@
-schema,status,notes
-vision.argus.public.summary.v1,scaffold,Replace with sanitized ARGUS public export only.
+metric,value
+schema,vision.argus.public.summary.v1
+status,first_real_watchdog_observatory
+files_seen,163
+files_quarantined_private,162
+files_rejected,1
+unique_files_total,134
+duplicates_total,28
+suspicious_total,0
+warnings_total,5
+safe_total,22
+unknown_total,135
+unknown_command_total,403
+oem_variant_signals,21
+raw_files_published,0
+coordinates_exposed,0
+customer_filenames_published,0
+sanitized_output_boundary_pct,100

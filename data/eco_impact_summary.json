@@ -1,5 +1,16 @@
 {
   "schema": "vision.argus.eco_impact.summary.v0",
-  "status": "scaffold",
-  "disclaimer": "Parametric estimate. Not a certification claim."
+  "generatedAt": "2026-06-08T10:34:20Z",
+  "source": "VISION.Watchdog first public aggregate",
+  "status": "not_computed_watchdog_intake_only",
+  "metrics": {
+    "idleSavedUnitsTotal": 0,
+    "idleSavedMillimeters": 0,
+    "timeRecoveredSeconds": 0,
+    "timeRecoveredHours": 0,
+    "energySavedKwh": 0,
+    "co2AvoidedKg": 0,
+    "fabricSavedStatus": "not_computed_no_argus_path_delta"
+  },
+  "disclaimer": "Parametric estimate. Not a certification claim. This snapshot is intake-only, so eco-impact is intentionally not computed."
 }

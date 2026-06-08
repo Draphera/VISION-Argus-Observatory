@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "npx serve .",
-    "build": "node scripts/build-static.js"
+    "build": "node scripts/build-static.js",
+    "guard:public": "node scripts/public-export-guard.js",
+    "prepublish:check": "npm run guard:public && npm run build"
   }
 }

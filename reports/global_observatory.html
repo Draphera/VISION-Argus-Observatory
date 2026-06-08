@@ -3,277 +3,124 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARGUS Global Observatory</title>
+  <title>VISION ARGUS Observatory - First Public Aggregate</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0a0f14;
-      --surface: #10171f;
-      --surface-2: #141c25;
-      --line: #2e3a46;
-      --line-soft: rgba(199, 211, 224, 0.13);
+      --bg: #0d1117;
+      --panel: #151b23;
+      --line: #303a46;
       --text: #edf4f8;
       --muted: #9ba9b7;
-      --blue: #7fb1d8;
       --green: #7cc987;
+      --blue: #7fb1d8;
       --amber: #c8aa62;
     }
-
-    * { box-sizing: border-box; }
-
     body {
-      background:
-        linear-gradient(180deg, rgba(127, 177, 216, 0.07), transparent 300px),
-        var(--bg);
-      color: var(--text);
-      font-family: "Segoe UI", Inter, Arial, sans-serif;
       margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      letter-spacing: 0;
     }
-
     main {
-      width: min(1180px, calc(100vw - 40px));
+      width: min(1120px, calc(100vw - 40px));
       margin: 0 auto;
-      padding: 30px 0 44px;
+      padding: 38px 0 54px;
     }
-
-    a { color: inherit; text-decoration: none; }
-
-    .top {
+    h1 { margin: 0 0 8px; font-size: 34px; }
+    h2 { margin-top: 34px; }
+    p { color: var(--muted); line-height: 1.55; }
+    .grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 20px;
-      align-items: center;
-      border-bottom: 1px solid var(--line-soft);
-      padding-bottom: 18px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(36px, 6vw, 66px);
-      line-height: 0.98;
-    }
-
-    .top p {
-      margin: 12px 0 0;
-      color: var(--muted);
-      line-height: 1.55;
-      max-width: 740px;
-    }
-
-    .nav {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav a {
-      border: 1px solid var(--line);
-      background: var(--surface-2);
-      color: var(--text);
-      padding: 9px 12px;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .nav a.primary {
-      background: #203445;
-      border-color: #4b7089;
-    }
-
-    .notice {
-      border: 1px solid rgba(124, 201, 135, 0.34);
-      background: rgba(124, 201, 135, 0.06);
-      color: #cbe8cf;
-      line-height: 1.6;
-      padding: 18px;
-      margin-top: 22px;
-    }
-
-    .dashboard {
-      display: grid;
-      grid-template-columns: 0.78fr 1.22fr;
-      gap: 16px;
-      margin-top: 16px;
-      align-items: stretch;
-    }
-
-    .panel {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      padding: 20px;
-    }
-
-    .panel h2 {
-      margin: 0 0 14px;
-      font-size: 22px;
-    }
-
-    .kpis {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
+      margin: 22px 0;
     }
-
-    .kpi {
-      border: 1px solid var(--line-soft);
-      background: rgba(20, 28, 37, 0.74);
-      padding: 15px;
-      min-height: 104px;
-    }
-
-    .kpi strong {
-      display: block;
-      font-size: 28px;
-      margin-bottom: 5px;
-    }
-
-    .kpi span {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      line-height: 1.35;
-    }
-
-    .bars {
-      display: grid;
-      gap: 13px;
-    }
-
-    .bar-row {
-      display: grid;
-      grid-template-columns: 120px 1fr 62px;
-      gap: 12px;
-      align-items: center;
-      color: #dbe5ee;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .track {
-      height: 12px;
-      border: 1px solid var(--line-soft);
-      background: #0d131a;
-      overflow: hidden;
-    }
-
-    .fill {
-      height: 100%;
-      background: var(--blue);
-    }
-
-    .fill.green { background: var(--green); }
-    .fill.amber { background: var(--amber); }
-
-    .section {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
     .card {
       border: 1px solid var(--line);
-      background: var(--surface);
+      background: var(--panel);
       padding: 18px;
-      min-height: 166px;
     }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 16px;
+    .card strong {
+      display: block;
+      font-size: 30px;
+      color: var(--text);
     }
-
-    .card p {
-      margin: 0;
-      color: #adbbc8;
-      line-height: 1.58;
-      font-size: 14px;
+    .card span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
     }
-
-    @media (max-width: 880px) {
-      .top,
-      .dashboard,
-      .section {
-        grid-template-columns: 1fr;
-      }
-
-      .nav {
-        justify-content: flex-start;
-      }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
     }
-
-    @media (max-width: 560px) {
-      main {
-        width: min(100% - 28px, 1180px);
-      }
-
-      .kpis {
-        grid-template-columns: 1fr;
-      }
-
-      .bar-row {
-        grid-template-columns: 1fr;
-      }
+    th, td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    th { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .ok { color: var(--green); }
+    .info { color: var(--blue); }
+    .warn { color: var(--amber); }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
 </head>
 <body>
-  <main>
-    <div class="top">
-      <div>
-        <h1>ARGUS Global Observatory</h1>
-        <p>Sanitized public report surface for aggregate CAD/exporter evidence. This page is static, public-safe and intentionally separated from VISION runtime.</p>
-      </div>
-      <nav class="nav" aria-label="Report navigation">
-        <a href="../index.html">Home</a>
-        <a href="../data/public_summary.json">JSON</a>
-        <a href="../data/public_summary.csv">CSV</a>
-        <a class="primary" href="../contact.html">Request Intake</a>
-      </nav>
-    </div>
+<main>
+  <h1>VISION ARGUS Observatory</h1>
+  <p>First public aggregate generated from a private Watchdog intake run. This page publishes observability, not customer geometry.</p>
 
-    <section class="notice">
-      Replace this placeholder with the generated sanitized ARGUS public export. No raw CAD, geometry,
-      coordinates, VNF, local paths, machine output, or customer data may be published here.
-    </section>
+  <section class="grid" aria-label="Privacy boundary">
+    <div class="card"><strong>0</strong><span>raw files published</span></div>
+    <div class="card"><strong>0</strong><span>coordinates exposed</span></div>
+    <div class="card"><strong>100%</strong><span>sanitized output boundary</span></div>
+    <div class="card"><strong>read-only</strong><span>public observatory</span></div>
+  </section>
 
-    <section class="dashboard">
-      <div class="panel">
-        <h2>Public boundary</h2>
-        <div class="kpis">
-          <div class="kpi"><strong>0</strong><span>raw files published</span></div>
-          <div class="kpi"><strong>0</strong><span>coordinates exposed</span></div>
-          <div class="kpi"><strong>static</strong><span>Vercel deployment</span></div>
-          <div class="kpi"><strong>safe</strong><span>aggregate metrics only</span></div>
-        </div>
-      </div>
-      <div class="panel">
-        <h2>Awaiting private export</h2>
-        <div class="bars" aria-label="Example public aggregate indicators">
-          <div class="bar-row"><span>Lectra</span><div class="track"><div class="fill" style="width: 90%;"></div></div><span>-90%</span></div>
-          <div class="bar-row"><span>Investronica</span><div class="track"><div class="fill green" style="width: 89%;"></div></div><span>-89%</span></div>
-          <div class="bar-row"><span>Pro2CAD</span><div class="track"><div class="fill amber" style="width: 73%;"></div></div><span>-73%</span></div>
-          <div class="bar-row"><span>CorelDraw</span><div class="track"><div class="fill" style="width: 72%;"></div></div><span>-72%</span></div>
-        </div>
-      </div>
-    </section>
+  <h2>Private Intake Aggregate</h2>
+  <section class="grid" aria-label="Run summary">
+    <div class="card"><strong>163</strong><span>files observed privately</span></div>
+    <div class="card"><strong>162</strong><span>quarantined privately</span></div>
+    <div class="card"><strong>22</strong><span>safe observations</span></div>
+    <div class="card"><strong>0</strong><span>suspicious files</span></div>
+  </section>
 
-    <section class="section">
-      <article class="card">
-        <h3>Command census</h3>
-        <p>Shows command reduction and vendor-level structural noise after private ARGUS analysis.</p>
-      </article>
-      <article class="card">
-        <h3>Motion evidence</h3>
-        <p>Publishes aggregate idle/work path indicators without releasing geometry or coordinates.</p>
-      </article>
-      <article class="card">
-        <h3>Eco-impact model</h3>
-        <p>Uses explicit parameters only. Estimates are public-facing indicators, not certification claims.</p>
-      </article>
-    </section>
-  </main>
+  <h2>Vendor Distribution</h2>
+  <table>
+    <thead><tr><th>Vendor</th><th>Observed files</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Assyst</td><td>21</td><td class="info">observed</td></tr>
+      <tr><td>FK</td><td>2</td><td class="info">observed</td></tr>
+      <tr><td>Gerber</td><td>11</td><td class="info">observed</td></tr>
+      <tr><td>Investronica</td><td>23</td><td class="info">observed</td></tr>
+      <tr><td>Lectra</td><td>31</td><td class="info">observed</td></tr>
+      <tr><td>Pro2CAD</td><td>1</td><td class="info">observed</td></tr>
+      <tr><td>Unknown</td><td>73</td><td class="warn">fingerprint review</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Review Signals</h2>
+  <table>
+    <thead><tr><th>Signal</th><th>Count</th><th>Interpretation</th></tr></thead>
+    <tbody>
+      <tr><td>Unknown command evidence</td><td>403</td><td>Candidate review queue, not active rules.</td></tr>
+      <tr><td>OEM variant signals</td><td>21</td><td>Observed privately, candidate-only.</td></tr>
+      <tr><td>Warnings</td><td>5</td><td>Duplicate observations only.</td></tr>
+      <tr><td>Rejected</td><td>1</td><td>Unsupported family boundary.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Boundary Statement</h2>
+  <p class="ok">ARGUS Public Observatory contains only sanitized aggregate metrics. Raw CAD files, coordinates, local paths, customer filenames, VNF artifacts and machine output remain private.</p>
+</main>
 </body>
 </html>
