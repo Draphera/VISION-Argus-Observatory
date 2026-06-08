@@ -1,12 +1,47 @@
 # VISION Argus Observatory
 
-Public sanitized observatory for industrial CAD / HPGL analysis metrics produced by VISION ARGUS.
+![Static Site](https://img.shields.io/badge/runtime-static--site-7fb1d8)
+![Read Only](https://img.shields.io/badge/ARGUS-read--only-7cc987)
+![No Raw CAD](https://img.shields.io/badge/raw%20CAD-not%20published-d47772)
+![Sanitized](https://img.shields.io/badge/public%20data-sanitized-c8aa62)
+![Vercel](https://img.shields.io/badge/deploy-vercel-black)
+
+Public sanitized observatory for industrial CAD / HPGL evidence produced by VISION ARGUS.
+
+> Private CAD intelligence stays private. Public evidence stays useful. That boundary is the product.
+
+## Public Evidence Contract
+
+```text
+0 raw files published
+0 coordinates exposed
+100% sanitized output boundary
+read-only public observatory
+```
+
+This repository is a public evidence surface, not a production runtime.
+
+## Live Surfaces
+
+- `index.html` - public observatory landing page
+- `reports/global_observatory.html` - sanitized ARGUS report surface
+- `contact.html` - metadata-only safe intake request
+- `data/public_summary.json` - aggregate public summary
+- `data/public_summary.csv` - aggregate public summary CSV
+- `data/eco_impact_summary.json` - parametric eco-impact summary
 
 ## Purpose
 
-This repository publishes aggregate, sanitized metrics only.
+ARGUS observes CAD/HPGL-family outputs and reports structural indicators such as:
 
-ARGUS observes CAD/HPGL-family outputs and reports structural indicators such as command reduction, vendor fingerprints, LB/SP usage, path efficiency, risk distribution, and parametric eco-impact estimates.
+- command reduction
+- vendor fingerprints
+- LB/SP usage
+- path efficiency
+- risk distribution
+- parametric eco-impact estimates
+
+ARGUS evidence helps explain industrial CAD normalization without exposing customer geometry.
 
 ## Safety Boundary
 
@@ -21,16 +56,7 @@ This public repository does not contain:
 - identifiable customer filenames
 - production machine output
 
-## Published Data
-
-Only sanitized aggregate outputs are allowed:
-
-- `data/public_summary.json`
-- `data/public_summary.csv`
-- `data/eco_impact_summary.json`
-- `reports/global_observatory.html`
-- `contact.html`
-- public documentation
+If a file can reveal customer geometry, customer identity, production details, or machine-ready output, it must not be committed.
 
 ## Private Boundary
 
@@ -50,26 +76,60 @@ The following remain private:
 
 ```text
 Private VISION
--> Watchdog / ARGUS full analysis
--> sanitized public export
--> VISION Argus Observatory
+  -> Watchdog quarantine
+  -> ARGUS full analysis
+  -> sanitized public export
+  -> VISION Argus Observatory
 ```
 
 ARGUS is read-only. Public data is aggregate and sanitized.
 
-## Status
+## Repository Layout
 
-Public observatory scaffold.
+```text
+.
+├── api/
+│   └── contact.js
+├── data/
+│   ├── public_summary.json
+│   ├── public_summary.csv
+│   ├── eco_impact_parameters.json
+│   └── eco_impact_summary.json
+├── docs/
+│   ├── ARGUS_OBSERVATORY_PREFREEZE.md
+│   ├── CONTACT_FORM_DEPLOYMENT.md
+│   ├── DATASET_INTAKE_RULES.md
+│   ├── PUBLIC_DATA_POLICY.md
+│   └── SECURITY_MODEL.md
+├── reports/
+│   └── global_observatory.html
+├── scripts/
+│   └── build-static.js
+├── contact.html
+├── index.html
+├── package.json
+└── vercel.json
+```
 
-## Local Static Preview
+## Local Build
 
-Open `index.html` directly or deploy the repository as a static Vercel project.
+```powershell
+npm run build
+```
 
-## Contact Form
+The build writes the static deployment bundle to:
 
-The contact form posts metadata only to `/api/contact`.
+```text
+public/
+```
 
-Required Vercel environment variables:
+The build script blocks CAD/VNF-family extensions from the public bundle.
+
+## Vercel Deployment
+
+The project is configured as a static Vercel site with a serverless metadata contact endpoint.
+
+Required environment variables:
 
 ```text
 RESEND_API_KEY=<resend-api-key>
@@ -77,6 +137,65 @@ CONTACT_TO=draphera.team@gmail.com
 CONTACT_FROM=VISION Argus Observatory <verified-sender@your-domain>
 ```
 
-The form does not accept file uploads.
+The contact form posts metadata only to:
 
-Detailed deployment notes are in `docs/CONTACT_FORM_DEPLOYMENT.md`.
+```text
+/api/contact
+```
+
+It does not accept file uploads.
+
+Deployment notes:
+
+- `docs/CONTACT_FORM_DEPLOYMENT.md`
+- `docs/ARGUS_OBSERVATORY_PREFREEZE.md`
+
+## Dataset Intake
+
+External CAD samples must never enter the public runtime.
+
+Correct flow:
+
+```text
+metadata request
+-> private reply
+-> quarantine channel
+-> manual audit
+-> private Watchdog / ARGUS analysis
+-> sanitized aggregate public evidence
+```
+
+See:
+
+- `docs/DATASET_INTAKE_RULES.md`
+- `docs/PUBLIC_DATA_POLICY.md`
+- `docs/SECURITY_MODEL.md`
+
+## Public Data Rules
+
+Allowed:
+
+- vendor-level aggregate metrics
+- command reduction percentages
+- SP/LB aggregate usage
+- risk distributions
+- static observatory HTML
+- parametric eco-impact summaries
+- documentation
+
+Forbidden:
+
+- raw CAD
+- HPGL / HPGL2 source
+- VNF
+- coordinates
+- customer filenames
+- local paths
+- private hashes tied to customer identity
+- production machine output
+
+## Status
+
+Pre-freeze public observatory.
+
+ARGUS full analysis remains private. The public repository contains only sanitized evidence and documentation.
