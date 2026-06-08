@@ -2,5 +2,15 @@
   "buildCommand": "npm run build",
   "outputDirectory": "public",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/reports/global_observatory",
+      "destination": "/reports/global_observatory.html"
+    }
+  ]
 }
