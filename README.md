@@ -29,6 +29,7 @@ Only sanitized aggregate outputs are allowed:
 - `data/public_summary.csv`
 - `data/eco_impact_summary.json`
 - `reports/global_observatory.html`
+- `contact.html`
 - public documentation
 
 ## Private Boundary

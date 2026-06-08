@@ -6,6 +6,7 @@ const output = path.join(root, "public");
 
 const allowedTopLevelFiles = [
   "index.html",
+  "contact.html",
   "README.md",
   "LICENSE",
   "vercel.json"
