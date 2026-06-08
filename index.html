@@ -137,7 +137,7 @@
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 0.95fr) minmax(520px, 1.05fr);
+      grid-template-columns: minmax(0, 0.9fr) minmax(560px, 1.1fr);
       gap: 30px;
       align-items: stretch;
       min-height: calc(100vh - 92px);
@@ -204,10 +204,10 @@
 
     .trust-row {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       margin-top: 28px;
-      max-width: 720px;
+      max-width: 620px;
     }
 
     .trust-item {
@@ -253,6 +253,83 @@
       text-transform: uppercase;
     }
 
+    .proof-panel {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 560px;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .proof-card {
+      position: relative;
+      border: 1px solid var(--line-soft);
+      background: rgba(20, 28, 37, 0.7);
+      padding: 18px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .proof-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-left: 3px solid rgba(127, 177, 216, 0.55);
+      pointer-events: none;
+    }
+
+    .proof-card.safe::before {
+      border-left-color: rgba(124, 201, 135, 0.7);
+    }
+
+    .proof-card strong {
+      display: block;
+      color: #f4f9fc;
+      font-size: clamp(48px, 6vw, 76px);
+      line-height: 0.88;
+      font-weight: 820;
+    }
+
+    .proof-card .word {
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 0.95;
+    }
+
+    .proof-card span {
+      display: block;
+      color: #b8c6d1;
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.35;
+      margin-top: 14px;
+      text-transform: uppercase;
+    }
+
+    .proof-card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .contract-line {
+      margin: 0 16px 16px;
+      border: 1px solid rgba(124, 201, 135, 0.34);
+      background: rgba(124, 201, 135, 0.06);
+      color: #d6efda;
+      padding: 14px 16px;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
     .cad-stage {
       position: relative;
       min-height: 396px;
@@ -266,10 +343,20 @@
       background-size: 30px 30px;
     }
 
+    .cad-stage.redacted {
+      min-height: 126px;
+      margin-top: 0;
+      opacity: 0.74;
+    }
+
     svg {
       display: block;
       width: 100%;
       height: 396px;
+    }
+
+    .cad-stage.redacted svg {
+      height: 126px;
     }
 
     .piece {
@@ -548,44 +635,51 @@
           <a class="button" href="docs/SECURITY_MODEL.md">Security Model</a>
         </div>
         <div class="trust-row">
-          <div class="trust-item"><strong>0</strong><span>raw files published</span></div>
-          <div class="trust-item"><strong>0</strong><span>coordinates exposed</span></div>
-          <div class="trust-item"><strong>100%</strong><span>sanitized output boundary</span></div>
-          <div class="trust-item"><strong>read-only</strong><span>public observatory</span></div>
+          <div class="trust-item"><strong>private in</strong><span>Watchdog / ARGUS full analysis</span></div>
+          <div class="trust-item"><strong>public out</strong><span>sanitized aggregate observatory</span></div>
         </div>
       </div>
 
-      <aside class="observatory" aria-label="CAD observatory visual">
+      <aside class="observatory proof-panel" aria-label="Public evidence contract">
         <div class="terminal-top">
-          <span>ARGUS / PUBLIC OBSERVATORY</span>
-          <span>sanitized metrics only</span>
+          <span>PUBLIC EVIDENCE CONTRACT</span>
+          <span>non-negotiable boundary</span>
         </div>
-        <div class="cad-stage">
-          <svg viewBox="0 0 760 420" role="img" aria-label="Stylized garment CAD layout analyzed by ARGUS">
-            <path class="piece soft" d="M46 56 L176 64 C204 96 198 142 170 168 C204 202 194 268 156 296 L44 306 Z"/>
-            <path class="piece selected" d="M226 44 L356 56 C382 92 374 138 342 162 C375 190 380 248 338 288 L220 292 Z"/>
-            <path class="piece" d="M414 64 L684 54 L694 122 L604 132 L602 214 L696 222 L686 292 L414 280 Z"/>
-            <path class="piece" d="M80 92 L152 98 C168 120 160 144 142 158 C162 182 158 230 135 252 L78 258 Z"/>
-            <path class="piece" d="M86 330 L210 318 L236 376 L112 392 Z"/>
-            <path class="piece" d="M312 324 L438 316 L464 382 L332 394 Z"/>
-            <path class="internal" d="M92 120 L142 128 M92 238 L138 226 M250 96 L322 104 M248 254 L320 242 M444 116 L560 114 M446 238 L566 240"/>
-            <path class="internal" d="M106 178 L160 178 M270 174 L330 174 M462 176 L640 176"/>
-            <path class="grain" d="M116 104 L116 250 M292 96 L292 250 M536 92 L536 248"/>
-            <path class="internal" d="M518 160 l18 14 l-18 14 Z M288 160 l18 14 l-18 14 Z M114 164 l18 14 l-18 14 Z"/>
-            <path class="scan-line" d="M24 338 L728 338"/>
-            <path class="scan-line" d="M618 42 L618 388"/>
-            <text class="label" x="90" y="76">FRONT PANEL</text>
-            <text class="label" x="248" y="78">BACK PANEL</text>
-            <text class="label" x="444" y="88">SLEEVE / CUT</text>
-            <text class="label" x="444" y="266">LB TEXT PRESERVED</text>
-            <text class="label" x="42" y="30">VISION CERTIFIED PUBLIC VIEW / GEOMETRY REDACTED</text>
+        <div class="proof-grid">
+          <div class="proof-card safe">
+            <strong>0</strong>
+            <span>raw files published</span>
+            <p>Customer CAD, HPGL, VNF and production files never enter the public repository.</p>
+          </div>
+          <div class="proof-card safe">
+            <strong>0</strong>
+            <span>coordinates exposed</span>
+            <p>No geometry, local paths, file names or machine-ready output is released.</p>
+          </div>
+          <div class="proof-card safe">
+            <strong>100%</strong>
+            <span>sanitized output boundary</span>
+            <p>Only aggregate metrics, documentation and public-safe reports are published.</p>
+          </div>
+          <div class="proof-card">
+            <strong class="word">read-only</strong>
+            <span>public observatory</span>
+            <p>The public layer observes evidence. It does not execute TITANO or certify files.</p>
+          </div>
+        </div>
+        <div class="contract-line">
+          Private CAD intelligence stays private. Public evidence stays useful. That boundary is the product.
+        </div>
+        <div class="cad-stage redacted">
+          <svg viewBox="0 0 760 150" role="img" aria-label="Redacted CAD trace showing sanitized public boundary">
+            <path class="piece soft" d="M46 34 L176 42 C204 74 198 102 170 116 L44 126 Z"/>
+            <path class="piece soft" d="M226 30 L356 42 C382 76 374 104 342 122 L220 128 Z"/>
+            <path class="piece soft" d="M414 42 L684 34 L694 88 L604 96 L602 122 L414 128 Z"/>
+            <path class="internal" d="M92 72 L142 80 M250 70 L322 78 M444 78 L560 76"/>
+            <path class="scan-line" d="M24 24 L728 24"/>
+            <path class="scan-line" d="M24 134 L728 134"/>
+            <text class="label" x="42" y="20">REDACTED CAD TRACE / METRICS ONLY</text>
           </svg>
-        </div>
-        <div class="terminal-bottom">
-          <div class="metric"><strong>safe</strong><span>public boundary</span></div>
-          <div class="metric"><strong>OEM</strong><span>vendor fingerprint</span></div>
-          <div class="metric"><strong>LB/SP</strong><span>semantic census</span></div>
-          <div class="metric"><strong>ARGUS</strong><span>post-analysis only</span></div>
         </div>
       </aside>
     </section>
