@@ -83,6 +83,53 @@ If the honeypot field is filled, the function returns success and silently ignor
 5. Submit a test request from `/contact.html`.
 6. Confirm email arrives at `draphera.team@gmail.com`.
 
+## Troubleshooting
+
+Use the production alias, not an immutable preview deployment URL:
+
+```text
+https://vision-argus-observatory.vercel.app/contact
+```
+
+If the browser shows:
+
+```text
+Request could not be sent.
+```
+
+check Vercel:
+
+```text
+Project -> Functions -> /api/contact -> Logs
+```
+
+Expected log prefix:
+
+```text
+VISION_ARGUS_CONTACT_SEND_FAILED
+```
+
+Common causes:
+
+- `RESEND_API_KEY` is missing or configured only for Preview but not Production.
+- `CONTACT_FROM` is not a verified Resend sender.
+- Resend sandbox sender is being used with an unverified recipient.
+- The site is being tested from an old preview deployment URL.
+
+For production, use a verified sender domain. Example:
+
+```text
+CONTACT_FROM=VISION Argus Observatory <intake@draphera.com>
+```
+
+If you need temporary diagnostics, add:
+
+```text
+CONTACT_DEBUG=true
+```
+
+Then redeploy. The API response will include the Resend HTTP status code, while detailed provider output remains in Vercel logs.
+
 ## Notes
 
 This is not a production file intake system.

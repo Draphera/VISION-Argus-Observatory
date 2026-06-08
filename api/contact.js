@@ -1,4 +1,6 @@
 const MAX_FIELD_LENGTH = 4000;
+const CONTACT_TO_DEFAULT = "draphera.team@gmail.com";
+const CONTACT_FROM_DEFAULT = "VISION Argus Observatory <onboarding@resend.dev>";
 
 function sanitize(value) {
   return String(value || "")
@@ -48,11 +50,16 @@ function buildEmailHtml(payload) {
 
 async function sendWithResend(payload) {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO || "draphera.team@gmail.com";
-  const from = process.env.CONTACT_FROM || "VISION Argus Observatory <onboarding@resend.dev>";
+  const to = (process.env.CONTACT_TO || CONTACT_TO_DEFAULT)
+    .split(",")
+    .map((value) => sanitize(value))
+    .filter(Boolean);
+  const from = process.env.CONTACT_FROM || CONTACT_FROM_DEFAULT;
 
   if (!apiKey) {
-    throw new Error("RESEND_API_KEY is not configured.");
+    const error = new Error("RESEND_API_KEY is not configured.");
+    error.code = "provider_not_configured";
+    throw error;
   }
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -66,14 +73,37 @@ async function sendWithResend(payload) {
       to,
       reply_to: payload.email,
       subject: `VISION ARGUS intake request - ${payload.vendor || "unknown vendor"}`,
-      html: buildEmailHtml(payload)
+      html: buildEmailHtml(payload),
+      text: buildEmailText(payload)
     })
   });
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Resend rejected request: ${response.status} ${body}`);
+    const error = new Error(`Resend rejected request: ${response.status} ${body}`);
+    error.code = "provider_rejected";
+    error.providerStatus = response.status;
+    error.providerBody = body;
+    throw error;
   }
+}
+
+function buildEmailText(payload) {
+  return [
+    "VISION Argus Observatory - Intake Request",
+    "",
+    "Metadata-only contact request. No raw CAD file was uploaded through the public site.",
+    "",
+    `Name / company: ${payload.nameCompany}`,
+    `Email: ${payload.email}`,
+    `Vendor: ${payload.vendor}`,
+    `File family: ${payload.fileFamily}`,
+    `Machine / cutter: ${payload.machine || "-"}`,
+    `Notes: ${payload.notes || "-"}`,
+    `Rights confirmed: ${payload.rightsConfirmed ? "yes" : "no"}`,
+    `Quarantine acknowledged: ${payload.quarantineAcknowledged ? "yes" : "no"}`,
+    `Public metrics acknowledged: ${payload.publicMetricsAcknowledged ? "yes" : "no"}`
+  ].join("\n");
 }
 
 module.exports = async function handler(request, response) {
@@ -119,7 +149,16 @@ module.exports = async function handler(request, response) {
     await sendWithResend(payload);
     response.status(200).json({ ok: true, status: "sent" });
   } catch (error) {
-    console.error(error);
-    response.status(500).json({ ok: false, error: "send_failed" });
+    console.error("VISION_ARGUS_CONTACT_SEND_FAILED", {
+      code: error.code || "send_failed",
+      providerStatus: error.providerStatus || null,
+      providerBody: error.providerBody || null
+    });
+
+    response.status(500).json({
+      ok: false,
+      error: error.code || "send_failed",
+      providerStatus: process.env.CONTACT_DEBUG === "true" ? error.providerStatus || null : undefined
+    });
   }
 };

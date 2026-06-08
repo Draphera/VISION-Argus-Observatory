@@ -5,20 +5,218 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ARGUS Global Observatory</title>
   <style>
-    :root { color-scheme: dark; --bg:#0d1117; --panel:#151b23; --line:#303a46; --text:#d6dee8; --muted:#93a2b2; --blue:#78a9d4; --green:#77c66e; }
-    body { background: var(--bg); color: var(--text); font-family: Segoe UI, Arial, sans-serif; margin: 0; }
-    main { width: min(1120px, calc(100vw - 40px)); margin: 0 auto; padding: 34px 0; }
-    a { color: var(--blue); text-decoration: none; }
-    .top { display:flex; justify-content:space-between; gap:20px; align-items:center; border-bottom:1px solid var(--line); padding-bottom:18px; }
-    .nav { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
-    .nav a { border:1px solid var(--line); background:#101721; color:var(--text); padding:9px 12px; font-size:13px; font-weight:700; }
-    .panel { border:1px solid var(--line); background:var(--panel); padding:22px; margin-top:20px; }
-    .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:20px; }
-    .kpi { border:1px solid var(--line); background:#101721; padding:16px; }
-    .kpi strong { display:block; font-size:28px; }
-    .kpi span { color:var(--muted); font-size:12px; font-weight:700; text-transform:uppercase; }
-    .notice { border:1px solid rgba(119,198,110,.35); background:rgba(119,198,110,.06); color:#cbe8cf; line-height:1.55; }
-    @media (max-width:800px){ .top{align-items:flex-start; flex-direction:column}.kpis{grid-template-columns:1fr} }
+    :root {
+      color-scheme: dark;
+      --bg: #0a0f14;
+      --surface: #10171f;
+      --surface-2: #141c25;
+      --line: #2e3a46;
+      --line-soft: rgba(199, 211, 224, 0.13);
+      --text: #edf4f8;
+      --muted: #9ba9b7;
+      --blue: #7fb1d8;
+      --green: #7cc987;
+      --amber: #c8aa62;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background:
+        linear-gradient(180deg, rgba(127, 177, 216, 0.07), transparent 300px),
+        var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Inter, Arial, sans-serif;
+      margin: 0;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 30px 0 44px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      border-bottom: 1px solid var(--line-soft);
+      padding-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 6vw, 66px);
+      line-height: 0.98;
+    }
+
+    .top p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 740px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .nav a.primary {
+      background: #203445;
+      border-color: #4b7089;
+    }
+
+    .notice {
+      border: 1px solid rgba(124, 201, 135, 0.34);
+      background: rgba(124, 201, 135, 0.06);
+      color: #cbe8cf;
+      line-height: 1.6;
+      padding: 18px;
+      margin-top: 22px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: 16px;
+      margin-top: 16px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 20px;
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .kpi {
+      border: 1px solid var(--line-soft);
+      background: rgba(20, 28, 37, 0.74);
+      padding: 15px;
+      min-height: 104px;
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .kpi span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+
+    .bars {
+      display: grid;
+      gap: 13px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 62px;
+      gap: 12px;
+      align-items: center;
+      color: #dbe5ee;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .track {
+      height: 12px;
+      border: 1px solid var(--line-soft);
+      background: #0d131a;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      background: var(--blue);
+    }
+
+    .fill.green { background: var(--green); }
+    .fill.amber { background: var(--amber); }
+
+    .section {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 18px;
+      min-height: 166px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .card p {
+      margin: 0;
+      color: #adbbc8;
+      line-height: 1.58;
+      font-size: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .top,
+      .dashboard,
+      .section {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 560px) {
+      main {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -26,27 +224,55 @@
     <div class="top">
       <div>
         <h1>ARGUS Global Observatory</h1>
-        <p>Sanitized public report placeholder.</p>
+        <p>Sanitized public report surface for aggregate CAD/exporter evidence. This page is static, public-safe and intentionally separated from VISION runtime.</p>
       </div>
       <nav class="nav" aria-label="Report navigation">
         <a href="../index.html">Home</a>
-        <a href="../contact.html">Request Intake</a>
+        <a href="../data/public_summary.json">JSON</a>
+        <a href="../data/public_summary.csv">CSV</a>
+        <a class="primary" href="../contact.html">Request Intake</a>
       </nav>
     </div>
-    <section class="panel notice">
-      Replace this page with the generated sanitized ARGUS public export. No raw CAD, geometry,
+
+    <section class="notice">
+      Replace this placeholder with the generated sanitized ARGUS public export. No raw CAD, geometry,
       coordinates, VNF, local paths, machine output, or customer data may be published here.
     </section>
-    <section class="kpis">
-      <div class="kpi"><strong>0</strong><span>vendors</span></div>
-      <div class="kpi"><strong>0</strong><span>paired files</span></div>
-      <div class="kpi"><strong>0%</strong><span>command delta</span></div>
-      <div class="kpi"><strong>safe</strong><span>public boundary</span></div>
+
+    <section class="dashboard">
+      <div class="panel">
+        <h2>Public boundary</h2>
+        <div class="kpis">
+          <div class="kpi"><strong>0</strong><span>raw files published</span></div>
+          <div class="kpi"><strong>0</strong><span>coordinates exposed</span></div>
+          <div class="kpi"><strong>static</strong><span>Vercel deployment</span></div>
+          <div class="kpi"><strong>safe</strong><span>aggregate metrics only</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Awaiting private export</h2>
+        <div class="bars" aria-label="Example public aggregate indicators">
+          <div class="bar-row"><span>Lectra</span><div class="track"><div class="fill" style="width: 90%;"></div></div><span>-90%</span></div>
+          <div class="bar-row"><span>Investronica</span><div class="track"><div class="fill green" style="width: 89%;"></div></div><span>-89%</span></div>
+          <div class="bar-row"><span>Pro2CAD</span><div class="track"><div class="fill amber" style="width: 73%;"></div></div><span>-73%</span></div>
+          <div class="bar-row"><span>CorelDraw</span><div class="track"><div class="fill" style="width: 72%;"></div></div><span>-72%</span></div>
+        </div>
+      </div>
     </section>
-    <section class="panel">
-      <h2>Awaiting public export</h2>
-      <p>Run the private ARGUS public export flow, then publish only sanitized HTML, JSON, CSV, and documentation artifacts.</p>
-      <p><a href="../data/public_summary.json">Open public_summary.json</a></p>
+
+    <section class="section">
+      <article class="card">
+        <h3>Command census</h3>
+        <p>Shows command reduction and vendor-level structural noise after private ARGUS analysis.</p>
+      </article>
+      <article class="card">
+        <h3>Motion evidence</h3>
+        <p>Publishes aggregate idle/work path indicators without releasing geometry or coordinates.</p>
+      </article>
+      <article class="card">
+        <h3>Eco-impact model</h3>
+        <p>Uses explicit parameters only. Estimates are public-facing indicators, not certification claims.</p>
+      </article>
     </section>
   </main>
 </body>
