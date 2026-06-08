@@ -4,6 +4,6 @@
   "private": true,
   "scripts": {
     "start": "npx serve .",
-    "build": "echo static"
+    "build": "node scripts/build-static.js"
   }
 }
