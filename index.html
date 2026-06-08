@@ -232,6 +232,38 @@
       line-height: 1.35;
     }
 
+    .snapshot-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+      max-width: 680px;
+    }
+
+    .snapshot-item {
+      border: 1px solid rgba(127, 177, 216, 0.24);
+      background: rgba(127, 177, 216, 0.06);
+      padding: 12px;
+      min-height: 92px;
+    }
+
+    .snapshot-item strong {
+      display: block;
+      color: #f4f9fc;
+      font-size: 29px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .snapshot-item span {
+      display: block;
+      color: #aebdca;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+
     .observatory {
       background: #0d131a;
       border: 1px solid var(--line);
@@ -590,6 +622,10 @@
         grid-template-columns: 1fr;
       }
 
+      .snapshot-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .cad-stage {
         margin: 12px;
       }
@@ -637,6 +673,12 @@
         <div class="trust-row">
           <div class="trust-item"><strong>private in</strong><span>Watchdog / ARGUS full analysis</span></div>
           <div class="trust-item"><strong>public out</strong><span>sanitized aggregate observatory</span></div>
+        </div>
+        <div class="snapshot-row" aria-label="First real sanitized intake snapshot">
+          <div class="snapshot-item"><strong>163</strong><span>files observed privately</span></div>
+          <div class="snapshot-item"><strong>162</strong><span>quarantined privately</span></div>
+          <div class="snapshot-item"><strong>22</strong><span>safe observations</span></div>
+          <div class="snapshot-item"><strong>0</strong><span>suspicious files</span></div>
         </div>
       </div>
 
