@@ -3,19 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VISION Argus Observatory</title>
+  <title>ARGUS Global Observatory</title>
   <style>
-    body { background: #0d1117; color: #d6dee8; font-family: Segoe UI, Arial, sans-serif; margin: 32px; }
-    .card { border: 1px solid #303a46; background: #151b23; padding: 18px; max-width: 900px; }
-    a { color: #7cb8d9; }
+    :root { color-scheme: dark; --bg:#0d1117; --panel:#151b23; --line:#303a46; --text:#d6dee8; --muted:#93a2b2; --blue:#78a9d4; --green:#77c66e; }
+    body { background: var(--bg); color: var(--text); font-family: Segoe UI, Arial, sans-serif; margin: 0; }
+    main { width: min(1120px, calc(100vw - 40px)); margin: 0 auto; padding: 34px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    .top { display:flex; justify-content:space-between; gap:20px; align-items:center; border-bottom:1px solid var(--line); padding-bottom:18px; }
+    .panel { border:1px solid var(--line); background:var(--panel); padding:22px; margin-top:20px; }
+    .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:20px; }
+    .kpi { border:1px solid var(--line); background:#101721; padding:16px; }
+    .kpi strong { display:block; font-size:28px; }
+    .kpi span { color:var(--muted); font-size:12px; font-weight:700; text-transform:uppercase; }
+    .notice { border:1px solid rgba(119,198,110,.35); background:rgba(119,198,110,.06); color:#cbe8cf; line-height:1.55; }
+    @media (max-width:800px){ .top{align-items:flex-start; flex-direction:column}.kpis{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>VISION Argus Observatory</h1>
-    <p>Public sanitized observatory scaffold.</p>
-    <p>Replace this file with the sanitized ARGUS public export.</p>
-    <p>No raw CAD, geometry, coordinates, VNF, or customer data may be published here.</p>
+  <main>
+    <div class="top">
+      <div>
+        <h1>ARGUS Global Observatory</h1>
+        <p>Sanitized public report placeholder.</p>
+      </div>
+      <a href="../index.html">Back to home</a>
+    </div>
+    <section class="panel notice">
+      Replace this page with the generated sanitized ARGUS public export. No raw CAD, geometry,
+      coordinates, VNF, local paths, machine output, or customer data may be published here.
+    </section>
+    <section class="kpis">
+      <div class="kpi"><strong>0</strong><span>vendors</span></div>
+      <div class="kpi"><strong>0</strong><span>paired files</span></div>
+      <div class="kpi"><strong>0%</strong><span>command delta</span></div>
+      <div class="kpi"><strong>safe</strong><span>public boundary</span></div>
+    </section>
+    <section class="panel">
+      <h2>Awaiting public export</h2>
+      <p>Run the private ARGUS public export flow, then publish only sanitized HTML, JSON, CSV, and documentation artifacts.</p>
+      <p><a href="../data/public_summary.json">Open public_summary.json</a></p>
+    </section>
   </main>
 </body>
 </html>

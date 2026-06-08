@@ -59,3 +59,7 @@ ARGUS is read-only. Public data is aggregate and sanitized.
 ## Status
 
 Public observatory scaffold.
+
+## Local Static Preview
+
+Open `index.html` directly or deploy the repository as a static Vercel project.

@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VISION Argus Observatory</title>
+  <meta name="description" content="Public sanitized observatory for VISION ARGUS industrial CAD and HPGL analysis metrics.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090d12;
+      --panel: #111820;
+      --panel-2: #151d27;
+      --line: #2f3a46;
+      --text: #eef4f8;
+      --muted: #93a2b2;
+      --blue: #78a9d4;
+      --green: #77c66e;
+      --amber: #c7a85a;
+      --red: #d66b6b;
+      --white-line: #c8d3de;
+      --shadow: rgba(0, 0, 0, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(180deg, rgba(120, 169, 212, 0.08), transparent 340px),
+        var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Inter, Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1180px, calc(100vw - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 0 18px;
+      border-bottom: 1px solid rgba(200, 211, 222, 0.12);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      background: #101721;
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 21px;
+    }
+
+    .brand-title {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .brand-subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-link {
+      border: 1px solid var(--line);
+      background: rgba(17, 24, 32, 0.82);
+      padding: 9px 12px;
+      color: #d9e3ec;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: stretch;
+      padding: 44px 0 30px;
+    }
+
+    .hero-copy {
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 34px 0;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(44px, 7vw, 84px);
+      line-height: 0.96;
+      font-weight: 750;
+      max-width: 760px;
+    }
+
+    .lead {
+      max-width: 660px;
+      margin: 22px 0 0;
+      color: #b7c4d1;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .button.primary {
+      background: #1c3345;
+      border-color: #456982;
+      color: #f5fbff;
+    }
+
+    .viewer {
+      background: #0d1117;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 80px var(--shadow);
+      min-height: 460px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .viewer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      border-bottom: 1px solid rgba(200, 211, 222, 0.12);
+      padding-bottom: 14px;
+    }
+
+    .cad-frame {
+      position: relative;
+      min-height: 300px;
+      margin: 18px 0;
+      overflow: hidden;
+      border: 1px solid rgba(200, 211, 222, 0.1);
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        #080d12;
+      background-size: 28px 28px;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 300px;
+    }
+
+    .piece {
+      fill: rgba(120, 169, 212, 0.015);
+      stroke: var(--white-line);
+      stroke-width: 1.35;
+      opacity: 0.88;
+    }
+
+    .internal {
+      stroke: #5f86ad;
+      stroke-width: 1;
+      opacity: 0.78;
+      fill: none;
+    }
+
+    .label {
+      fill: #a8b3c1;
+      opacity: 0.78;
+      font: 9px Consolas, monospace;
+    }
+
+    .grain {
+      stroke: var(--amber);
+      stroke-width: 1;
+      opacity: 0.72;
+    }
+
+    .viewer-bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .metric {
+      border: 1px solid rgba(200, 211, 222, 0.12);
+      background: rgba(21, 29, 39, 0.75);
+      padding: 12px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .section {
+      padding: 18px 0 52px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid rgba(200, 211, 222, 0.12);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .section-title p {
+      margin: 0;
+      max-width: 540px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 18px;
+      min-height: 170px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .card p {
+      margin: 0;
+      color: #adbbc8;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .status-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      background: #101721;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #d7e1ea;
+      font-weight: 700;
+    }
+
+    .safety {
+      border: 1px solid rgba(119, 198, 110, 0.35);
+      background: rgba(119, 198, 110, 0.06);
+      padding: 18px;
+      color: #cbe8cf;
+      line-height: 1.6;
+    }
+
+    footer {
+      color: var(--muted);
+      border-top: 1px solid rgba(200, 211, 222, 0.12);
+      padding: 22px 0 34px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      header,
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 28px;
+      }
+
+      .hero-copy {
+        min-height: auto;
+        padding: 18px 0;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .viewer-bottom {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <a class="brand" href="./">
+      <div class="mark">V</div>
+      <div>
+        <div class="brand-title">VISION Argus Observatory</div>
+        <div class="brand-subtitle">Sanitized industrial CAD observability</div>
+      </div>
+    </a>
+    <nav aria-label="Public navigation">
+      <a class="nav-link" href="reports/global_observatory.html">Observatory</a>
+      <a class="nav-link" href="data/public_summary.json">JSON</a>
+      <a class="nav-link" href="data/public_summary.csv">CSV</a>
+      <a class="nav-link" href="docs/PUBLIC_DATA_POLICY.md">Policy</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Draphera Vision / ARGUS public layer</div>
+        <h1>Industrial CAD intelligence, without exposing customer geometry.</h1>
+        <p class="lead">
+          A public, sanitized observatory for ARGUS metrics over industrial CAD and HPGL-family exports:
+          command density, vendor signals, path efficiency, LB/SP usage, risk distribution, and eco-impact estimates.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="reports/global_observatory.html">Open Observatory</a>
+          <a class="button" href="docs/SECURITY_MODEL.md">Security Model</a>
+          <a class="button" href="docs/DATASET_INTAKE_RULES.md">Dataset Intake</a>
+        </div>
+        <div class="status-line">
+          <span class="badge">Static only</span>
+          <span class="badge">Sanitized aggregates</span>
+          <span class="badge">No raw CAD</span>
+          <span class="badge">No VNF geometry</span>
+        </div>
+      </div>
+
+      <aside class="viewer" aria-label="CAD preview illustration">
+        <div class="viewer-top">
+          <span>ARGUS / PUBLIC OBSERVATORY</span>
+          <span>read-only</span>
+        </div>
+        <div class="cad-frame">
+          <svg viewBox="0 0 720 330" role="img" aria-label="Stylized garment CAD layout">
+            <path class="piece" d="M56 48 L184 58 C210 88 205 132 178 157 C208 190 200 250 165 277 L54 285 Z"/>
+            <path class="piece" d="M230 40 L350 48 C372 82 365 128 336 151 C366 178 371 232 336 270 L225 275 Z"/>
+            <path class="piece" d="M402 54 L655 48 L662 118 L582 126 L580 198 L665 206 L660 275 L405 264 Z"/>
+            <path class="piece" d="M78 78 L160 86 C173 109 166 132 146 146 C166 166 165 215 143 238 L76 246 Z"/>
+            <path class="internal" d="M92 104 L142 112 M92 222 L140 211 M255 86 L320 92 M252 242 L318 231 M432 103 L542 102 M432 222 L548 224"/>
+            <path class="internal" d="M106 166 L160 166 M266 160 L326 160 M450 160 L620 160"/>
+            <path class="grain" d="M113 94 L113 238 M290 88 L290 238 M520 84 L520 238"/>
+            <path class="internal" d="M506 146 l18 14 l-18 14 Z M286 146 l18 14 l-18 14 Z M112 150 l18 14 l-18 14 Z"/>
+            <text class="label" x="88" y="62">FRONT PANEL</text>
+            <text class="label" x="250" y="64">BACK PANEL</text>
+            <text class="label" x="430" y="78">SLEEVE / CUT</text>
+            <text class="label" x="430" y="248">LB TEXT PRESERVED</text>
+          </svg>
+        </div>
+        <div class="viewer-bottom">
+          <div class="metric"><strong>0</strong><span>raw files published</span></div>
+          <div class="metric"><strong>0</strong><span>coordinates exposed</span></div>
+          <div class="metric"><strong>100%</strong><span>sanitized boundary</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>What ARGUS publishes</h2>
+        <p>Only public-safe aggregates generated from private analysis. The observatory is evidence, not production infrastructure.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Command Reduction</h3>
+          <p>Measures how much proprietary command noise is reduced after deterministic normalization.</p>
+        </article>
+        <article class="card">
+          <h3>Vendor Signals</h3>
+          <p>Shows sanitized vendor-level fingerprints and routing hints without revealing file identity.</p>
+        </article>
+        <article class="card">
+          <h3>Path Efficiency</h3>
+          <p>Reports aggregate idle/work path deltas as industrial efficiency indicators.</p>
+        </article>
+        <article class="card">
+          <h3>Risk Distribution</h3>
+          <p>Summarizes unknown, suspicious, rejected, and safe traffic from Watchdog intake.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>Safety boundary</h2>
+        <p>VISION core, Watchdog raw intake, TITANO, LEXICON, THEMIS, VNF and certification stay private.</p>
+      </div>
+      <div class="safety">
+        This public observatory does not contain raw CAD files, HPGL/HPGL2 source files, VNF files,
+        coordinates, local paths, customer filenames, production machine output, or customer geometry.
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    VISION Argus Observatory. Public sanitized metrics only. Draphera Vision, 2026.
+  </footer>
+</body>
+</html>
