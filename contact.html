@@ -166,6 +166,14 @@
       margin: 4px 0 0;
     }
 
+    .hidden-field {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
     .check {
       display: grid;
       grid-template-columns: 20px 1fr;
@@ -273,7 +281,11 @@
 
     <section class="grid">
       <div class="card">
-        <form action="mailto:draphera.team@gmail.com" method="post" enctype="text/plain">
+        <form id="contact-form" action="/api/contact" method="post">
+          <label class="hidden-field" aria-hidden="true">
+            Website
+            <input name="website" tabindex="-1" autocomplete="off">
+          </label>
           <label>
             Name / company
             <input name="name_company" autocomplete="organization" required>
@@ -367,7 +379,7 @@
 
           <button class="button" type="submit">Send contact request</button>
           <button class="button secondary" type="reset">Clear</button>
-          <p class="small">Requests are sent to the official Draphera intake mailbox.</p>
+          <p id="form-status" class="small">Requests are sent to the official Draphera intake mailbox. No file upload is available on this public form.</p>
         </form>
       </div>
 
@@ -398,5 +410,37 @@
   <footer class="shell">
     VISION Argus Observatory. Public contact form collects metadata only.
   </footer>
+  <script>
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      status.textContent = "Sending request...";
+
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+      for (const checkbox of form.querySelectorAll("input[type='checkbox']")) {
+        payload[checkbox.name] = checkbox.checked;
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || "send_failed");
+        }
+
+        form.reset();
+        status.textContent = "Request sent. We will reply with private quarantine instructions.";
+      } catch {
+        status.textContent = "Request could not be sent. Please email draphera.team@gmail.com directly.";
+      }
+    });
+  </script>
 </body>
 </html>

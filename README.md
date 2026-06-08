@@ -64,3 +64,19 @@ Public observatory scaffold.
 ## Local Static Preview
 
 Open `index.html` directly or deploy the repository as a static Vercel project.
+
+## Contact Form
+
+The contact form posts metadata only to `/api/contact`.
+
+Required Vercel environment variables:
+
+```text
+RESEND_API_KEY=<resend-api-key>
+CONTACT_TO=draphera.team@gmail.com
+CONTACT_FROM=VISION Argus Observatory <verified-sender@your-domain>
+```
+
+The form does not accept file uploads.
+
+Detailed deployment notes are in `docs/CONTACT_FORM_DEPLOYMENT.md`.
